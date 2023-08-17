@@ -34,7 +34,7 @@ app.get('/', (request, response) => {
 
 
 
-// GET ss
+// GET persons
 
 app.get('/api/persons', (request, response) => {
     return response.json(persons)
@@ -46,7 +46,11 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/info', (request, response) => {
     const personCount = persons.length
-    return response.send(`${personCount}`).status(400)
+
+    const content = `<p>Phonebook has info for ${personCount}</p> 
+    <p> ${new Date()}</p>`
+
+    return response.send(`${content}`)
 })
 
 
