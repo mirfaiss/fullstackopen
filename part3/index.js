@@ -43,6 +43,7 @@ app.get('/api/persons', (request, response) => {
 
 
 // GET Person
+
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
 
@@ -68,6 +69,30 @@ app.get('/info', (request, response) => {
     <p> ${new Date()}</p>`
 
     return response.send(`${content}`)
+})
+
+
+
+// POST, add person
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+
+    const id = Math.floor(Math.random() * 100000) + 1
+
+    body.id = id
+
+    const arranged = {
+        "id": body.id,
+        "name": body.name,
+        "number": body.number
+    }
+
+
+    persons = persons.concat(arranged)
+
+    return response.json(persons)
+
 })
 
 
