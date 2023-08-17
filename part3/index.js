@@ -75,8 +75,30 @@ app.get('/info', (request, response) => {
 
 // POST, add person
 
+const isSame = (name) => {
+    const x = persons.find(x => x.name.toLowerCase() === name)
+    console.log('is name found :', x)
+
+
+
+    return x ? true : false
+    // work
+}
+
 app.post('/api/persons', (request, response) => {
     const body = request.body
+
+
+
+    if (!body.name || !body.number) {
+        return response.send('The name or number is missing...')
+    }
+
+    if (isSame(body.name.toLowerCase())) {
+        // console.log('is same :', isSame(body.name.toLowerCase()))
+        return response.status(404).json({ error: 'name must be unique' })
+    }
+
 
     const id = Math.floor(Math.random() * 100000) + 1
 
