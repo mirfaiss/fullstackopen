@@ -1,0 +1,77 @@
+0.1: HTML
+
+0.2: CSS
+
+0.3: HTML forms
+
+0.4: New note diagram
+    sequenceDiagram
+        participant browser
+        participant server
+
+        browser->>server: 
+            User fill the input field
+            POST https://studies.cs.helsinki.fi/exampleapp/new_note
+            Send user input to server
+        activate server
+        server-->>browser: HTTP status code 302, redirect link to location exampleapp/notes
+        deactivate server
+
+        browser->>server: Reload the page
+            GET https://studies.cs.helsinki.fi/exampleapp/main.css
+        activate server
+        server-->>browser: the css file
+        deactivate server
+
+        browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+        activate server
+        server-->>browser: the JavaScript file
+        deactivate server
+
+        browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+        activate server
+        server-->>browser: data included user that submitted before
+            [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+        deactivate server
+
+0.5: Single page app diagram
+    sequenceDiagram
+        participant browser
+        participant server
+
+        browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+        activate server
+        server-->>browser: HTML document
+        deactivate server
+
+        browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+        activate server
+        server-->>browser: the css file
+        deactivate server
+
+        browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+        activate server
+        server-->>browser: the JavaScript file
+        deactivate server
+
+        browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+        activate server
+        server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+        deactivate server
+
+0.6: New note in Single page app diagram
+    sequenceDiagram
+        participant browser
+        participant server
+
+        browser : 
+            User fill the input field
+            push it to array notes that loaded before
+            rewrite the document with id notes using javascript
+
+        browser->>server: 
+            POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+            Send user input to server
+        activate server
+        server-->>browser: new_note_spa with content type application/json
+        deactivate server
