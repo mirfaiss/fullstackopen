@@ -42,6 +42,23 @@ app.get('/api/persons', (request, response) => {
 
 
 
+// GET Person
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+
+    const person = persons.find(x => x.id === id)
+
+    if (person) {
+        console.log(person)
+        return response.json(person)
+    } else {
+        console.log(person)
+        return response.status(404).send("Person not found")
+    }
+})
+
+
+
 // GET info number of people and get the current time request
 
 app.get('/info', (request, response) => {
