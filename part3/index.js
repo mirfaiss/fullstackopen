@@ -1,19 +1,22 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 
 // Middleware untuk mengurai body permintaan berformat JSON
 app.use(express.json())
 
+// Menggunakan Middleware 'morgan'
+app.use(morgan('tiny'))
 
 // Middleware untuk mencatat informasi permintaan
-const requestLogger = (req, res, next) => {
-    console.log('Permintaan diterima:', req.method, req.url);
-    console.log('Body permintaan:', req.body);
-    next(); // Lanjut ke middleware atau penanganan rute berikutnya
-}
+// const requestLogger = (req, res, next) => {
+//     console.log('Permintaan diterima:', req.method, req.url);
+//     console.log('Body permintaan:', req.body);
+//     next(); // Lanjut ke middleware atau penanganan rute berikutnya
+// }
 
-app.use(requestLogger);
+// app.use(requestLogger);
 
 
 

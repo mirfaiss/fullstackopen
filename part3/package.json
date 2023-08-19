@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node index.js", 
-    "dev" : "node --watch index.js"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
   "author": "Muhammad Irfa'issurur",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
   }
 }
