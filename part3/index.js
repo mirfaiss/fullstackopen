@@ -1,7 +1,21 @@
 const express = require('express')
 const app = express()
 
+
+// Middleware untuk mengurai body permintaan berformat JSON
 app.use(express.json())
+
+
+// Middleware untuk mencatat informasi permintaan
+const requestLogger = (req, res, next) => {
+    console.log('Permintaan diterima:', req.method, req.url);
+    console.log('Body permintaan:', req.body);
+    next(); // Lanjut ke middleware atau penanganan rute berikutnya
+}
+
+app.use(requestLogger);
+
+
 
 let persons = [
     {
@@ -87,8 +101,6 @@ const isSame = (name) => {
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
-
-
 
     if (!body.name || !body.number) {
         return response.send('The name or number is missing...')
