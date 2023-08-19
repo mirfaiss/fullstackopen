@@ -1,13 +1,28 @@
 const express = require('express')
 const morgan = require('morgan')
+
+const body = (req, res, next) => {
+    console.log(req.body)
+    next()
+}
+
 const app = express()
 
 
 // Middleware untuk mengurai body permintaan berformat JSON
 app.use(express.json())
 
+morgan.token('body', (req, res) => {
+    if (req.method === 'POST') {
+        return JSON.stringify(req.body)
+    }
+})
+
 // Menggunakan Middleware 'morgan'
-app.use(morgan('tiny'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+// app.use(morgan('tiny'))
+// app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
+
 
 // Middleware untuk mencatat informasi permintaan
 // const requestLogger = (req, res, next) => {
@@ -67,10 +82,10 @@ app.get('/api/persons/:id', (request, response) => {
     const person = persons.find(x => x.id === id)
 
     if (person) {
-        console.log(person)
+        // console.log(person)
         return response.json(person)
     } else {
-        console.log(person)
+        // console.log(person)
         return response.status(404).send("Person not found")
     }
 })
